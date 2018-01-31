@@ -5,8 +5,8 @@ This problem provides practice at:
   ***  LOOPS WITHIN LOOPS in 2D GRAPHICS problems.  ***
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Damon Kintner.
+"""  # Done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 ########################################################################
 # Students:
@@ -88,8 +88,43 @@ def hourglass(window, n, point, radius, color):
     where n and radius are positive and color is a string that denotes
     a color that rosegraphics understands.
     """
+
+    og_circle_up = rg.Circle(point,radius)
+    og_circle_down = rg.Circle(point,radius)
+    for k in range(n):
+        change = 0
+        for j in range(k+1):
+            circle = rg.Circle(og_circle_up.center, og_circle_up.radius)
+            circle.attach_to(window)
+            circle.fill_color=color
+            p1 = rg.Point(circle.center.x-radius,circle.center.y)
+            p2 = rg.Point(circle.center.x+radius,circle.center.y)
+            line = rg.Line(p1,p2)
+            line.attach_to(window)
+            window.render()
+            og_circle_up.center.x = og_circle_up.center.x + 2*radius
+            change = change + 2*radius
+        og_circle_up.center.y = og_circle_up.center.y - 2*radius
+        og_circle_up.center.x = og_circle_up.center.x - radius - change
+        change1 = 0
+        for l in range(k+1):
+            circle1 = rg.Circle(og_circle_down.center, og_circle_down.radius)
+            circle1.attach_to(window)
+            circle1.fill_color=color
+            p1 = rg.Point(circle1.center.x-radius,circle1.center.y)
+            p2 = rg.Point(circle1.center.x+radius,circle1.center.y)
+            line = rg.Line(p1,p2)
+            line.attach_to(window)
+            window.render()
+            og_circle_down.center.x = og_circle_down.center.x + 2*radius
+            change1 = change1 + 2*radius
+        og_circle_down.center.y = og_circle_down.center.y + 2 * radius
+        og_circle_down.center.x = og_circle_down.center.x - radius-change1
+
+
+
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # Done: 2. Implement and test this function.
     #       We provided some tests for you (above).
     # ------------------------------------------------------------------
     ####################################################################
@@ -162,6 +197,16 @@ def many_hourglasses(window, square, m, colors):
     where m is positive and colors is a sequence of strings,
     each of which denotes a color that rosegraphics understands.
     """
+    multiplier = 0
+    for k in range(m):
+        new_square = rg.Square(square.center,square.length_of_each_side)
+        new_square.attach_to(window)
+        hourglass(window,k+1,square.center,square.length_of_each_side/2,colors[-k])
+        multiplier = multiplier+2
+        square.center.x = square.center.x + square.length_of_each_side
+        square.length_of_each_side = square.length_of_each_side + square.length_of_each_side * multiplier
+        window.render()
+
     # ------------------------------------------------------------------
     # TODO: 3. Implement and test this function.
     #       We provided some tests for you (above).

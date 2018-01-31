@@ -5,8 +5,8 @@ This problem provides practice at:
   ***  SEQUENCES.  ***
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Damon Kintner.
+"""  # Done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 ########################################################################
 # Students:
@@ -133,8 +133,16 @@ def practice_problem4a(sequence):
     Type hints:
       :type sequence: list | tuple | string
     """
+    list=[]
+    for k in range(len(sequence)):
+        if k > 0:
+            if sequence[k] == sequence[k-1]:
+                list.append(k-1)
+    return list
+
+
     ####################################################################
-    # TODO: 2. Implement and test this function.
+    # Done: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     ####################################################################
     # DIFFICULTY AND TIME RATINGS (see top of this file for explanation)
@@ -196,8 +204,17 @@ def practice_problem4b(sequence):
     Type hints:
       :type sequence: (list | tuple) of (float | int)
     """
+    largest = sequence[0]
+    for k in range(0,len(sequence),2):
+        if k == 0:
+            if sequence[k] > largest:
+                largest = sequence[k]
+        if sequence[k] > largest:
+            largest = sequence[k]
+    return largest
+
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # Done: 3. Implement and test this function.
     #     The testing code is already written for you (above).
     ####################################################################
     # DIFFICULTY AND TIME RATINGS (see top of this file for explanation)
@@ -294,8 +311,19 @@ def practice_problem4c(points):
       :type points: tuple of rg.Point
       :rtype: rg.Point | string
     """
+
+    for k in range(len(points)):
+        if is_prime(points[k].x) == True:
+            if is_prime(points[k].y) == True:
+                x = points[k].x
+                y = points[k].y
+                points[k].x = y
+                points[k].y = x
+                return points[k]
+    return "Not found"
+
     ####################################################################
-    # TODO: 4. Implement and test this function.
+    # Done: 4. Implement and test this function.
     #     The testing code is already written for you (above).
     #
     # IMPORTANT: This problem is your LOWEST PRIORITY for preparing
@@ -390,8 +418,17 @@ def practice_problem4d(sequence):
       :type sequence: (list | tuple) of int
       :rtype: int
     """
+
+    total = 0
+    for k in range(len(sequence)-1):
+        if is_prime(sequence[k])==True:
+            if is_prime(sequence[k+1])==True:
+                if sequence[k+1] != sequence[k]:
+                    total = total + sequence[k]
+    return total
+
     ####################################################################
-    # TODO: 5. Implement and test this function.
+    # Done: 5. Implement and test this function.
     #     The testing code is already written for you (above).
     ####################################################################
     # DIFFICULTY AND TIME RATINGS (see top of this file for explanation)
